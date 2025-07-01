@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anvith Lokku</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <style>
+    :root {
+      --primary-color: #0071e3;
+      --bg-light: #f0f8ff;
+      --bg-dark: #0a192f;
+      --text-light: #ffffff;
+      --text-dark: #1a1a1a;
+      --accent: #dff6ff;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, var(--bg-light), #e6f2ff);
+      color: var(--text-dark);
+      margin: 0;
+      scroll-behavior: smooth;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    body.dark-mode {
+      background: linear-gradient(to bottom right, #0a192f, #1f2c3b);
+      color: var(--text-light);
+    }
+
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 8px solid var(--primary-color);
+      border-top: 8px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    header {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      padding: 40px 20px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+      animation: slideIn 1s ease-out;
+    }
+
+    header p {
+      font-size: 20px;
+      color: #a8b2d1;
+    }
+
+    .photo {
+      margin: 20px auto;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary-color);
+      display: block;
+      animation: fadeZoom 1.5s ease-in-out forwards;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--bg-light);
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 999;
+      transition: background 0.5s;
+    }
+
+    body.dark-mode nav {
+      background: #152035;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: bold;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #005bb5;
+    }
+
+    #toggle-mode {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      padding: 6px 14px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    #toggle-mode:hover {
+      background: #005bb5;
+    }
+
+    section {
+      padding: 60px 20px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .quote {
+      background-color: var(--accent);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 30px auto;
+      max-width: 600px;
+      font-style: italic;
+      color: #003049;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+      width: 400px;
+      height: 300px;
+      z-index: 10;
+    }
+
+    .skills ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      padding: 0;
+    }
+
+    .skills li {
+      background: var(--primary-color);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 16px;
+      animation: bounceIn 0.6s ease-in-out;
+    }
+
+    .social-links a {
+      margin: 0 15px;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      transition: transform 0.3s ease, color 0.3s ease;
+      display: inline-block;
+    }
+
+    .social-links a:hover {
+      color: #005bb5;
+      transform: scale(1.1);
+    }
+
+    footer {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      margin-top: 60px;
+    }
+
+    @keyframes slideIn {
+      0% { transform: translateY(-40px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeZoom {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <header>
+    <button id="toggle-mode">Toggle Mode</button>
+    <h1>Anvith Lokku</h1>
+    <p>Cricket & Photography Lover | Cloud Learner | 23 years old</p>
+    <img src="anvith.jpg" alt="Anvith Lokku" class="photo" />
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#photos">Photos</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      Hey there! I'm Anvith Lokku. I'm passionate about cricket — both playing and watching — and I enjoy capturing the world through my lens. Currently learning cloud technologies like AWS and exploring Linux.
+    </p>
+    <div class="quote">
+      "Cricket is not just a game, it's an emotion." — Every cricket fan ever
+    </div>
+  </section>
+
+  <section id="photos">
+    <h2>Photography</h2>
+    <div class="gallery">
+      <img src="rohit.jpg" alt="Cricket click" />
+      <img src="nature.jpg" alt="Nature shot" />
+      <img src="random.jpg" alt="Random moment" />
+    </div>
+  </section>
+
+  <section id="skills" class="skills">
+    <h2>My Skills</h2>
+    <ul>
+      <li>HTML</li>
+      <li>Linux</li>
+      <li>AWS (EC2, S3)</li>
+      <li>Photography</li>
+      <li>Time Management</li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2>Connect with Me</h2>
+    <div class="social-links">
+      <a href="https://www.instagram.com/anvithhh.27/?__pwa=1" target="_blank">Instagram</a>
+      <a href="https://www.linkedin.com/in/anvith-lokku-722127340/" target="_blank">LinkedIn</a>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Anvith Lokku. All rights reserved.
+  </footer>
+
+  <script>
+    // Splash screen
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      setTimeout(() => loader.style.display = "none", 1000);
+    });
+
+    // Light/Dark Mode Toggle
+    document.getElementById("toggle-mode").onclick = function () {
+      document.body.classList.toggle("dark-mode");
+    };
+
+    // Animate sections on scroll
+    const sections = document.querySelectorAll("section");
+
+    const revealSection = () => {
+      const trigger = window.innerHeight * 0.8;
+      sections.forEach((section) => {
+        const top = section.getBoundingClientRect().top;
+        if (top < trigger) {
+          section.classList.add("visible");
+        }
+      });
+    };
+
+    window.addEventListener("scroll", revealSection);
+    window.addEventListener("load", revealSection);
+  </script>
+</body>
+</html>
